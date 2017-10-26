@@ -1,0 +1,315 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Paint</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+		
+</head>
+<body onload="draw()">
+
+<!--Menu-->
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myMenu">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse" id="menu">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" >File</a>
+					<ul class="dropdown-menu">
+						<li><a id="mAdd" class="button">Add new file</a></li>
+						<li><a id="mDel" class="button">Delete file</a></li>
+						<li><a id="mRename" class="button">Rename file</a></li>
+					</ul>
+				</li>
+				<li class="dropdown disabled">
+					<a class="dropdown-toggle disabled" data-toggle="dropdown" >Tab</a>
+					<ul class="dropdown-menu">
+					</ul>
+				</li>
+				<li class="dropdown disabled">
+					<a class="dropdown-toggle" data-toggle="dropdown" >Figure</a>
+					<ul class="dropdown-menu">
+						<li><a id="mColor">Color</a></li>
+						<li class="dropdown-submenu">
+							<a class="test">Width<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a id="mWidth" class="button">1</a></li>
+								<li><a id="mWidth" class="button">3</a></li>
+								<li><a id="mWidth" class="button">5</a></li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu">
+							<a class="test">Type<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a id="mType" class="button">Line</a></li>
+								<li><a id="mType" class="button">Ellipse</a></li>
+								<li><a id="mType" class="button">Rectangle</a></li>
+								<li><a id="mType" class="button">RoundRectangle</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>	
+				<li class="dropdown disabled">
+					<a class="dropdown-toggle" data-toggle="dropdown">Text</a>
+					<ul class="dropdown-menu">
+						<li><a id="mColorTxt" class="button">Color</a></li>
+						<li><a id="mFontTxt" class="button">Font</a></li>
+						<li class="dropdown-submenu">
+							<a class="test">Align<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a id="mAlignTxt" class="button">Top</a></li>
+								<li><a id="mAlignTxt" class="button">Bottom</a></li>
+								<li><a id="mAlignTxt" class="button">Right</a></li>
+								<li><a id="mAlignTxt" class="button">Left</a></li>
+								<li><a id="mAlignTxt" class="button">Center</a></li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu">
+							<a class="test">Angle<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a id="mAngleTxt">0</a></li>
+								<li><a id="mAngleTxt">30</a></li>
+								<li><a id="mAngleTxt">45</a></li>
+								<li><a id="mAngleTxt">60</a></li>
+								<li><a id="mAngleTxt">90</a></li>
+								<li><a id="mAngleTxt">180</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>	
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown">Plugins</a>
+					<ul class="dropdown-menu" id="pluginsSubMenu">
+						<label><input type="checkbox" value="" id="mEmptyFigure">Empty Figure</label>
+						<label><input type="checkbox" value="" id="mFigureTxt">Figure with text</label>
+						<label><input type="checkbox" value="" id="mFigureImg">Figure with image</label>
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown">Settings</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-submenu">
+							<a class="test">Language<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a id="mLanguage" class="button">English</a></li>
+								<li><a id="mLanguage" class="button">Russian</a></li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu">
+							<a class="test">Skin<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a id="mSkin" class="button">Black</a></li>
+								<li><a id="mSkin" class="button">White</a></li>
+								<li><a id="mSkin" class="button">Asian</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" >Help</a>
+						<ul class="dropdown-menu">
+							<li><a id="mHelp" class="button">Help</a></li>
+							<li><a id="mAbout" class="button">About Paint</a></li>
+						</ul>
+					</ul>
+				</li>				
+			</ul>
+		</div>
+	</div>
+</nav>
+<!--ToolBar-->
+<nav class="navbar navbar-default" id="toolBar">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myToolBar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+		</button>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<button id="tAdd" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+					<br/>
+				</button>
+				<button id="tColorF" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-tint"></span>
+					<br/>
+				</button>
+				<button  class="btn navbar-btn">
+					<span class="glyphicon glyphicon-text-width"></span>
+					Width
+					<select class="comboBox" id="tWidthF">
+						<option>1</option>
+						<option>3</option>
+						<option>5</option>
+					</select>
+					<br/>
+				</button>
+				<button class="btn navbar-btn">
+					Type
+					<select class="comboBox"  id="tTypeF" >
+						<option>Line</option>
+						<option>Ellipse</option>
+						<option>Rectangle</option>
+						<option>RoundRectangle</option>
+					</select>
+				</button>
+				<button id="tColorTxt" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-text-color"></span> Text color
+					<br/>
+					
+				</button>
+				<button id="tFontTxt" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-font"></span> Font
+					<br/>
+				</button>
+				<button id="tAlignTxt" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-align-left"></span>
+					<br/>
+				</button>
+				<button id="tAlignTxt" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-align-center"></span>
+					<br/>
+				</button>
+				<button id="tAlignTxt" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-align-right"></span>
+					<br/>
+				</button>
+				<button class="btn navbar-btn">
+					<span class="glyphicon glyphicon-repeat"></span>
+					Rotation angle
+						<select id="tAngleTxt" class="angle">
+						<option>0</option>
+						<option>45</option>
+						<option>90</option>
+						<option>180</option>
+					</select>
+					<br/>
+				</button>
+				<button id="tSave" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-floppy-save"></span>
+					<br/>
+				</button>
+				<button id="tLoad" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-download-alt"></span>
+					<br/>
+				</button>
+				<button id="tSaveCloud" class="btn navbar-btn">
+					<span class="glyphicon glyphicon-cloud-download"></span> Save
+					<br/>
+				</button>
+				<button id="tLoadCloud"class="btn navbar-btn">
+					<span class="glyphicon glyphicon-cloud-upload"></span> Load
+					<br/>
+				</button>
+			</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<div class="row">
+	<div class="col-sm-2">
+		<!--Plugins-->
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">Plugins</div>
+			<div class="panel-body">
+				<div class="btn-group-vertical">
+					<button type="button" class="btn btn-primary" id="pEmpty">Empty Figure</button>
+					<button type="button" class="btn btn-primary">Figure with text</button>
+					<button type="button" class="btn btn-primary">Figure with image</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-8">
+	<!--TabControl-->
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1">Tab 1</a></li>
+			<li><a data-toggle="tab" href="#tab2">Tab 2</a></li>
+		</ul>
+		<!--TabPages-->
+		<div class="tab-content">
+			<div id="tab1" class="tab-pane fade in active">
+				<svg id="tablet" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>
+			</div>
+			<div id="tab2" class="tab-pane fade">
+				Other PDraw
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-2">
+	<!--Properties-->
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">Properties</div>
+			<!--<div class="panel-body">
+				<label>Type:</label>
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary">Rectangle</button>
+					<button type="button" class="btn btn-primary">Line</button> 
+				</div>
+				<div class="btn-group"> 
+					<button type="button" class="btn btn-primary">Ellipse</button>
+					<button type="button" class="btn btn-primary">RoundRect</button>
+				</div>
+			</div>
+			<div class="panel-body">
+				<button type="button" class="btn btn-primary">Color</button>
+			</div>
+			<div class="panel-body">
+				<label>Width:</label>
+				<select class="width">
+					<option>1</option>
+					<option>3</option>
+					<option>5</option>
+				</select>
+			</div>
+		</div> -->
+	</div>
+	
+	
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $('.dropdown-submenu a.test').on("click", function(e){
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+
+</script>
+
+
+<script type="text/javascript" src="xCommand.js"></script>
+<script type="text/javascript" src="Figure.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript" src="toolBar.js"></script>
+<script type="text/javascript" src="PDraw.js"></script>
+<script type="text/javascript" src="EmptyFigure+1.js"></script>
+<script type="text/javascript" src="toolBox.js"></script>
+<script type="text/javascript" src="General.js"></script>
+
+</body>
+</html>
